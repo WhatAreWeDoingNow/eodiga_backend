@@ -39,13 +39,10 @@ public class Reservation {
     private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
-    private Status status; // RESERVED, CANCELED, COMPLETED
+    private Status status;
 
     @OneToOne
     @JoinColumn(name = "review_id")
     private Review review;
 
-    public enum Status {
-        RESERVED, CANCELED, COMPLETED
-    }
 }

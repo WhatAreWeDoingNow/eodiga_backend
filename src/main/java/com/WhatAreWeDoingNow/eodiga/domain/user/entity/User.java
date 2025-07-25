@@ -21,13 +21,10 @@ public class User {
     private String password;
 
     @Enumerated(EnumType.STRING)
-    private Role role; // USER / OWNER
+    private Role role;
 
     private String username;
 
     private String location;
 
-    public enum Role {
-        USER, OWNER
-    }
 }

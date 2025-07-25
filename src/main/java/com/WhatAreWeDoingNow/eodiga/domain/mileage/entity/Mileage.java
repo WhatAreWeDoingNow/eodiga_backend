@@ -25,13 +25,10 @@ public class Mileage {
     private int point;
 
     @Enumerated(EnumType.STRING)
-    private Type type; // EARNED, USED, DONATED
+    private Type type;
 
     private String description;
 
     private LocalDateTime createdAt;
 
-    public enum Type {
-        EARNED, USED, DONATED
-    }
 }

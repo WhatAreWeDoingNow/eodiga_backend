@@ -23,7 +23,7 @@ public class Content {
     private Store store;
 
     @Enumerated(EnumType.STRING)
-    private ContentType type; // CARD_NEWS, VIDEO
+    private ContentType type;
 
     private String title;
 
@@ -31,7 +31,4 @@ public class Content {
 
     private LocalDateTime createdAt;
 
-    public enum ContentType {
-        CARD_NEWS, VIDEO
-    }
 }
