@@ -23,7 +23,7 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role; // USER / OWNER
 
-    private String nickname;
+    private String username;
 
     private String location;
 
