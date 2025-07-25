@@ -4,12 +4,13 @@ import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.LoginDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.RegisterDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.service.AuthService;
 import com.WhatAreWeDoingNow.eodiga.domain.jwt.dto.JwtTokenDto;
+import com.WhatAreWeDoingNow.eodiga.global.common.ApiPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping(ApiPath.AUTH_ROOT)
 @RequiredArgsConstructor
 public class AuthController {
 
