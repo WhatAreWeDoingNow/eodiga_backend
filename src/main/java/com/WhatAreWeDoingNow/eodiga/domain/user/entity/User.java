@@ -1,5 +1,6 @@
 package com.WhatAreWeDoingNow.eodiga.domain.user.entity;
 
+import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -26,5 +27,8 @@ public class User {
     private String username;
 
     private String location;
+
+    @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Store store;
 
 }

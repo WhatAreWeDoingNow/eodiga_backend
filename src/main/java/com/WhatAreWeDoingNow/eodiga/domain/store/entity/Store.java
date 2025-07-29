@@ -1,31 +1,36 @@
 package com.WhatAreWeDoingNow.eodiga.domain.store.entity;
 
-import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
+import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
 
 @Entity
-@Table(name = "stores")
+@Table(name = "store")
 @Getter
 @Setter
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
+@Builder
 public class Store {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long storeId;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private User owner;
-
+    @Column(nullable = false)
     private String name;
 
-    private String description;
+    @Column(nullable = false)
+    private String address;
 
-    private String location;
+    private String detailAddress;
 
-    private String photoUrl;
+    private String phoneNumber;
+
+    @Column(nullable = false)
+    private String category;
+
+    @OneToOne
+    @JoinColumn(name = "owner_id", nullable = false)
+    private User owner;
 }
