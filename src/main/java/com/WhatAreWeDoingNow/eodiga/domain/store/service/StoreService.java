@@ -1,6 +1,7 @@
 package com.WhatAreWeDoingNow.eodiga.domain.store.service;
 
-import com.WhatAreWeDoingNow.eodiga.domain.store.dto.createStoreDto;
+import com.WhatAreWeDoingNow.eodiga.domain.store.dto.CreateStoreDto;
+import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreResponseDto;
 import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
 import com.WhatAreWeDoingNow.eodiga.domain.store.repository.StoreRepository;
 import com.WhatAreWeDoingNow.eodiga.domain.user.entity.Role;
@@ -11,6 +12,10 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class StoreService {
@@ -20,7 +25,7 @@ public class StoreService {
     private final JwtProvider jwtProvider;
 
     @Transactional
-    public void registerStore(String token, createStoreDto dto) {
+    public void registerStore(String token, CreateStoreDto dto) {
         String email = jwtProvider.extractEmail(token); // 이메일 추출
 
         User user = userRepository.findByEmail(email)
@@ -46,5 +51,40 @@ public class StoreService {
         storeRepository.save(store);
     }
 
+    public StoreResponseDto getMyStore(String token) {
+        String email = jwtProvider.extractEmail(token);
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("유저를 찾을 수 없습니다."));
 
+        Store store = storeRepository.findByOwner(user)
+                .orElseThrow(() -> new NoSuchElementException("내 가게 정보가 없습니다."));
+
+        return convertToDto(store);
+    }
+
+    public List<StoreResponseDto> getAllStores() {
+        List<Store> stores = storeRepository.findAll();
+        return stores.stream()
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
+    }
+
+    public StoreResponseDto getStoreById(Long storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new NoSuchElementException("해당 가게를 찾을 수 없습니다."));
+
+        return convertToDto(store);
+    }
+
+    private StoreResponseDto convertToDto(Store store) {
+        return new StoreResponseDto(
+                store.getStoreId(),
+                store.getName(),
+                store.getAddress(),
+                store.getDetailAddress(),
+                store.getPhoneNumber(),
+                store.getCategory(),
+                store.getOwner().getUserId()
+        );
+    }
 }
