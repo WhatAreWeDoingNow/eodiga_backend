@@ -1,5 +1,6 @@
 package com.WhatAreWeDoingNow.eodiga.domain.auth.service;
 
+import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.EmailCheckDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.RegisterDto;
 import com.WhatAreWeDoingNow.eodiga.domain.jwt.dto.JwtTokenDto;
 import com.WhatAreWeDoingNow.eodiga.domain.jwt.dto.RefreshTokenDto;
@@ -20,11 +21,13 @@ public class AuthService {
     private final JwtRedisService jwtRedisService;
     private final JwtProvider jwtProvider;
 
-    public void signUp(RegisterDto dto) {
-        if (userRepository.existsByEmail(dto.getEmail())) {
+    public void checkEmail(EmailCheckDto emailCheckDto) {
+        if (userRepository.existsByEmail(emailCheckDto.getEmail())) {
             throw new RuntimeException("이미 존재하는 이메일입니다.");
         }
+    }
 
+    public void signUp(RegisterDto dto) {
         User user = User.builder()
                 .email(dto.getEmail())
                 .password(passwordEncoder.encode(dto.getPassword()))

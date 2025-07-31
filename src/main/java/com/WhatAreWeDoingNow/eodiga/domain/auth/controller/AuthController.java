@@ -1,5 +1,6 @@
 package com.WhatAreWeDoingNow.eodiga.domain.auth.controller;
 
+import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.EmailCheckDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.LoginDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.RegisterDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.service.AuthService;
@@ -18,6 +19,12 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
 
     private final AuthService authService;
+
+    @PostMapping("/email/check")
+    public ResponseEntity<Response> checkEmail(@RequestBody EmailCheckDto emailCheckDto) {
+        authService.checkEmail(emailCheckDto);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), null, "사용 가능한 이메일 입니다."));
+    }
 
     // 회원가입
     @PostMapping("/register")
