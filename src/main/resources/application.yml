@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: eodiga
+
+  datasource:
+    url: jdbc:mysql://eodiga-mysql:3306/eodiga?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: eodiga
+    password: eodiga1234
+
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+jwt:
+  secret: 1234567890987654321JWTSECRET1234567890987654321
