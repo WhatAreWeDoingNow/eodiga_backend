@@ -2,6 +2,8 @@ package com.WhatAreWeDoingNow.eodiga.domain.store.controller;
 
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.CreateStoreDto;
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreResponseDto;
+import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreUpdateDto;
+import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
 import com.WhatAreWeDoingNow.eodiga.domain.store.service.StoreService;
 import com.WhatAreWeDoingNow.eodiga.global.common.ApiPath;
 import com.WhatAreWeDoingNow.eodiga.global.common.dto.Response;
@@ -45,5 +47,21 @@ public class StoreController {
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), storeService.getStoreById(storeId), "해당 storeId로 가게 정보를 가져왔습니다."));
     }
 
+    @PatchMapping("/{storeId}")
+    public ResponseEntity<Response<Store>> updateStore(
+            @PathVariable Long storeId,
+            @RequestBody StoreUpdateDto dto
+    ) {
+        Store updatedStore = storeService.updateStore(storeId, dto);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), updatedStore, "가게 정보를 수정되었습니다."));
+    }
+
+    @DeleteMapping("/{storeId}")
+    public ResponseEntity<Response<Store>> deleteStore(
+            @PathVariable Long storeId
+    ) {
+        storeService.deleteStore(storeId);
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), null, "가게 정보를 수정되었습니다."));
+    }
 
 }
