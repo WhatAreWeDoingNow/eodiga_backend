@@ -2,6 +2,7 @@ package com.WhatAreWeDoingNow.eodiga.domain.reservation.controller;
 
 import com.WhatAreWeDoingNow.eodiga.domain.reservation.dto.ReservationCreateDto;
 import com.WhatAreWeDoingNow.eodiga.domain.reservation.dto.ReservationResponseDto;
+import com.WhatAreWeDoingNow.eodiga.domain.reservation.dto.ReservationStatusUpdateDto;
 import com.WhatAreWeDoingNow.eodiga.domain.reservation.entity.Reservation;
 import com.WhatAreWeDoingNow.eodiga.domain.reservation.service.ReservationService;
 import com.WhatAreWeDoingNow.eodiga.global.common.ApiPath;
@@ -29,5 +30,14 @@ public class ReservationController {
     public ResponseEntity<Response<List<ReservationResponseDto>>> getReservations(@RequestHeader("Authorization") String token) {
         List<ReservationResponseDto> reservations = reservationService.getReservationsByUserId(token);
         return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), reservations, "가게 예약 목록을 가져왔습니다."));
+    }
+
+    @PatchMapping("/{reservationId}/status")
+    public ResponseEntity<Response<Void>> updateStatus(
+            @PathVariable Long reservationId,
+            @RequestBody ReservationStatusUpdateDto dto
+    ) {
+        reservationService.updateReservationStatus(reservationId, dto.getStatus());
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), null, "예약 상태가 변경되었습니다."));
     }
 }
