@@ -5,4 +5,5 @@ public class ApiPath {
     public static final String BASE_PATH = "/api" + version;
     public static final String AUTH_ROOT = BASE_PATH + "/auth";
     public static final String STORE_ROOT = BASE_PATH + "/store";
+    public static final String RESERVATION_ROOT = BASE_PATH + "/reservation";
 }

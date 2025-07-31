@@ -1,0 +1,11 @@
+package com.WhatAreWeDoingNow.eodiga.domain.reservation.repository;
+
+import com.WhatAreWeDoingNow.eodiga.domain.reservation.entity.Reservation;
+import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ReservationRepository extends JpaRepository<Reservation, Long> {
+    List<Reservation> findAllByUser(User user);
+}

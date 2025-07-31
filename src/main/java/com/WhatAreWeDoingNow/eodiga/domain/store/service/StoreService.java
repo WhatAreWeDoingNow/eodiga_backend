@@ -2,12 +2,14 @@ package com.WhatAreWeDoingNow.eodiga.domain.store.service;
 
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.CreateStoreDto;
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreResponseDto;
+import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreUpdateDto;
 import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
 import com.WhatAreWeDoingNow.eodiga.domain.store.repository.StoreRepository;
 import com.WhatAreWeDoingNow.eodiga.domain.user.entity.Role;
 import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
 import com.WhatAreWeDoingNow.eodiga.domain.user.repository.UserRepository;
 import com.WhatAreWeDoingNow.eodiga.global.utility.JwtProvider;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -86,5 +88,25 @@ public class StoreService {
                 store.getCategory(),
                 store.getOwner().getUserId()
         );
+    }
+
+    @Transactional
+    public Store updateStore(Long storeId, StoreUpdateDto dto) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + storeId));
+
+        if (dto.getName() != null) store.setName(dto.getName());
+        if (dto.getAddress() != null) store.setAddress(dto.getAddress());
+        if (dto.getDetailAddress() != null) store.setDetailAddress(dto.getDetailAddress());
+        if (dto.getPhoneNumber() != null) store.setPhoneNumber(dto.getPhoneNumber());
+        if (dto.getCategory() != null) store.setCategory(dto.getCategory());
+
+        return store;
+    }
+
+    public void deleteStore(Long storeId) {
+        Store store = storeRepository.findById(storeId)
+                .orElseThrow(() -> new EntityNotFoundException("Store not found with id: " + storeId));
+        storeRepository.delete(store);
     }
 }
