@@ -9,11 +9,16 @@ services:
       MYSQL_USER: eodiga
       MYSQL_PASSWORD: eodiga1234
     ports:
-      - "3307:3306"
+      - "3307:3306"  # 호스트 3307, 컨테이너 3306
     volumes:
       - mysql-data:/var/lib/mysql
     networks:
       - eodiga-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   redis:
     image: redis:alpine
@@ -23,6 +28,11 @@ services:
       - "6379:6379"
     networks:
       - eodiga-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build:
@@ -31,8 +41,10 @@ services:
     container_name: eodiga-app
     restart: always
     depends_on:
-      - mysql
-      - redis
+      mysql:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     ports:
       - "8080:8080"
     environment:

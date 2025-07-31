@@ -4,6 +4,7 @@ import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.LoginDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.dto.RegisterDto;
 import com.WhatAreWeDoingNow.eodiga.domain.auth.service.AuthService;
 import com.WhatAreWeDoingNow.eodiga.domain.jwt.dto.JwtTokenDto;
+import com.WhatAreWeDoingNow.eodiga.domain.jwt.dto.RefreshTokenDto;
 import com.WhatAreWeDoingNow.eodiga.global.common.ApiPath;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +33,8 @@ public class AuthController {
 
     // 리프레시 토큰으로 엑세스 토큰 재발급
     @PostMapping("/refresh")
-    public ResponseEntity<JwtTokenDto> refreshToken(@RequestBody JwtTokenDto refreshRequest) {
-        JwtTokenDto tokens = authService.refreshAccessToken(refreshRequest.refreshToken());
-        return ResponseEntity.ok(tokens);
+    public ResponseEntity<RefreshTokenDto> refreshToken(@RequestHeader("Authorization") String refreshToekn) {
+        refreshToekn = refreshToekn.replace("Bearer ", "");
+        return ResponseEntity.ok(authService.refreshAccessToken(refreshToekn));
     }
 }
