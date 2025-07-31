@@ -2,7 +2,6 @@ package com.WhatAreWeDoingNow.eodiga.domain.store.controller;
 
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.CreateStoreDto;
 import com.WhatAreWeDoingNow.eodiga.domain.store.dto.StoreResponseDto;
-import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
 import com.WhatAreWeDoingNow.eodiga.domain.store.service.StoreService;
 import com.WhatAreWeDoingNow.eodiga.global.common.ApiPath;
 import com.WhatAreWeDoingNow.eodiga.global.common.dto.Response;
@@ -27,7 +26,7 @@ public class StoreController {
         token = token.replace("Bearer ", "");
         storeService.registerStore(token, dto);
 
-        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), null, "가게가 성공적으로 등록되었습니다.");
+        return ResponseEntity.ok(new Response<>(HttpStatus.OK.value(), null, "가게가 성공적으로 등록되었습니다."));
     }
 
     @GetMapping("/me")
