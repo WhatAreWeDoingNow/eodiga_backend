@@ -7,4 +7,5 @@ public class ApiPath {
     public static final String STORE_ROOT = BASE_PATH + "/store";
     public static final String RESERVATION_ROOT = BASE_PATH + "/reservation";
     public static final String REVIEW_ROOT = BASE_PATH + "/review";
+    public static final String MILEAGE_ROOT = BASE_PATH + "/mileage";
 }
