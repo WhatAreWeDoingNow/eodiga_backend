@@ -59,4 +59,12 @@ public class ReservationService {
                         .build())
                 .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void updateReservationStatus(Long reservationId, Status status) {
+        Reservation reservation = reservationRepository.findById(reservationId)
+                .orElseThrow(() -> new EntityNotFoundException("Reservation not found"));
+
+        reservation.setStatus(status);
+    }
 }

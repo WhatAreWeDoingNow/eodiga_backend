@@ -1,8 +1,12 @@
 package com.WhatAreWeDoingNow.eodiga.domain.store.entity;
 
+import com.WhatAreWeDoingNow.eodiga.domain.review.entity.Review;
 import jakarta.persistence.*;
 import lombok.*;
 import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "store")
@@ -33,4 +37,7 @@ public class Store {
     @OneToOne
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
+
+    @OneToMany(mappedBy = "store")
+    private List<Review> reviews = new ArrayList<>();
 }
