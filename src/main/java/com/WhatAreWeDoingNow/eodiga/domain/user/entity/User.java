@@ -29,4 +29,10 @@ public class User {
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Store store;
 
+    @Column(nullable = false)
+    private int totalMileage = 0;
+
+    public void addMileage(int point) {
+        this.totalMileage += point;
+    }
 }
