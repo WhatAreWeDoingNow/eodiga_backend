@@ -31,18 +31,15 @@ public class Reservation {
     private Long reservationId;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
     private LocalDateTime dateTime;
 
     @Enumerated(EnumType.STRING)
     private Status status;
-
-    @OneToOne
-    @JoinColumn(name = "review_id")
-    private Review review;
-
 }
