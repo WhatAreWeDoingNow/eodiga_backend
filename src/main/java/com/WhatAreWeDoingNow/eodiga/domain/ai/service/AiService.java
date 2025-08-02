@@ -11,7 +11,7 @@ public class AiService {
     private final RestTemplateUtil restTemplateUtil;
 
     public Object createComment(CreateCommentDto dto) {
-        String url = "http://localhost:8000/api/v1/textGenerate";
+        String url = "http://localhost:8000/api/v1/generate";
         return restTemplateUtil.post(url, dto, CreateCommentDto.class);
     }
 }
