@@ -1,21 +1,12 @@
 package com.WhatAreWeDoingNow.eodiga.domain.reservation.entity;
 
-import com.WhatAreWeDoingNow.eodiga.domain.review.entity.Review;
 import com.WhatAreWeDoingNow.eodiga.domain.user.entity.User;
 import com.WhatAreWeDoingNow.eodiga.domain.store.entity.Store;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "reservations")
@@ -38,8 +29,18 @@ public class Reservation {
     @JoinColumn(name = "store_id", nullable = false)
     private Store store;
 
-    private LocalDateTime dateTime;
+    @Column(nullable = false)
+    private LocalDate reservationDate;
+
+    @Column(nullable = false)
+    private LocalTime reservationTime;
 
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @Column(nullable = false)
+    private String reserverName;
+
+    @Column(nullable = false)
+    private int peopleCount;
 }

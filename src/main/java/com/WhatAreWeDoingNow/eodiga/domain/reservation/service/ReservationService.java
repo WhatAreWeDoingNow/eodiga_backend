@@ -38,12 +38,16 @@ public class ReservationService {
         Reservation reservation = Reservation.builder()
                 .user(user)
                 .store(store)
-                .dateTime(dto.getDateTime())
+                .reservationDate(dto.getReservationDate())
+                .reservationTime(dto.getReservationTime())
+                .reserverName(dto.getReserverName())
+                .peopleCount(dto.getPeopleCount())
                 .status(Status.RESERVED)
                 .build();
 
         return reservationRepository.save(reservation);
     }
+
 
     @Transactional(readOnly = true)
     public List<ReservationResponseDto> getReservationsByUserId(String token) {
@@ -54,11 +58,13 @@ public class ReservationService {
                 .map(res -> ReservationResponseDto.builder()
                         .reservationId(res.getReservationId())
                         .storeName(res.getStore().getName())
-                        .dateTime(res.getDateTime())
+                        .reservationDate(res.getReservationDate())
+                        .reservationTime(res.getReservationTime())
                         .status(res.getStatus())
                         .build())
                 .collect(Collectors.toList());
     }
+
 
     @Transactional
     public void updateReservationStatus(Long reservationId, Status status) {
